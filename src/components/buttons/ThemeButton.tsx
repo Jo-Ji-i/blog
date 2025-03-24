@@ -2,7 +2,7 @@
 
 import { MoonIcon, SunIcon } from '@/style/icons';
 import { useTheme } from 'next-themes';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export default function ThemeButton() {
     const [mounted, setMounted] = useState(false); // 마운트 상태

@@ -3,6 +3,9 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import localFont from 'next/font/local';
 
+import Header from '@/components/Header';
+import ThemeProvider from '@/components/providers/ThemeProvider';
+
 // varibable : TailwindCSS에서 이용하기 위해 작성
 const pretendard = localFont({
     src: '../fonts/PretendardVariable.ttf',
@@ -32,9 +35,12 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en">
+        <html>
             <body className={`${pretendard.variable} font-pretendard`}>
-                {children}
+                <ThemeProvider>
+                    <Header />
+                    <main>{children}</main>
+                </ThemeProvider>
             </body>
         </html>
     );

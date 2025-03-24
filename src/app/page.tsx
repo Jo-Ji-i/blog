@@ -4,8 +4,8 @@ import Image from 'next/image';
 
 export default function Home() {
     return (
-        <div className="bg-blue-50">
-            <p className="font-black font-pretendard text-md"> main page</p>
+        <div className="">
+            <p className="font-black font-pretendard "> main page</p>
         </div>
     );
 }

@@ -4,9 +4,11 @@ export default function mainLayout({
     childeren: React.ReactNode;
 }) {
     return (
-        <html lang="kr">
-            <header />
-            <body>{childeren}</body>
+        <html>
+            <body>
+                <header />
+                <body>{childeren}</body>
+            </body>
         </html>
     );
 }

@@ -5,7 +5,7 @@ const Header = () => {
     return (
         <>
             <div className="flex items-center justify-between h-10 gap-3 px-2 m-2 font-pretendard">
-                <div className="font-bold text-md justify-self-start">blog</div>
+                <div className="font-bold text-md justify-self-start">B</div>
                 <div className="flex flex-row justify-end gap-3 text-sm">
                     <div className="hover:text-yellow-300">Article</div>
                     <div className="hover:text-blue-400">Tag</div>

@@ -11,24 +11,6 @@ type PostCardProps = {
     priority?: boolean;
 };
 
-{
-    /* <div
-                        className="flex flex-col items-center justify-center"
-                        key={post.slug}
-                    >
-                        <h2> {post.title} </h2>
-                        <Image
-                            src={`/images/main/${post.image}`}
-                            alt={post.title}
-                            width={300}
-                            height={200}
-                            className="rounded-lg"
-                        />
-                        <p> {post.excerpt} </p>
-                        <span> {post.date}</span>
-                    </div> */
-}
-
 const PostCard = ({
     title,
     excerpt,
@@ -39,7 +21,7 @@ const PostCard = ({
     priority,
 }: PostCardProps) => {
     return (
-        <div className="flex flex-col items-center justify-center">
+        <div className="flex flex-col items-center justify-center flex-shrink-0">
             <div className="relative w-full h-full">
                 <Image
                     src={`/images/main/${image}`}
@@ -49,7 +31,7 @@ const PostCard = ({
                     className="object-cover rounded-lg"
                 />
                 <div className="absolute inset-0 flex flex-col items-start justify-end p-2 text-white transition-opacity opacity-50 bg-black/50 group-hover:opacity-100">
-                    <h2 className="text-xl font-semibold font-pretendard">
+                    <h2 className="font-semibold text-md font-pretendard">
                         {title}
                         <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
                             ...

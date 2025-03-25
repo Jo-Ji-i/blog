@@ -15,3 +15,7 @@
         --theme-primary: 34 102 255;
     }
 }
+
+body {
+    font-family: var(--font-pretendard), sans-serif;
+}

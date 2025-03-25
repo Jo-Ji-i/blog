@@ -25,7 +25,6 @@ export async function GET() {
                 content,
             };
         });
-
         return NextResponse.json(posts);
     } catch (error) {
         console.error('Error reading posts:', error);

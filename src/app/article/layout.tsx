@@ -1,14 +1,16 @@
-export default function mainLayout({
-    childeren,
+import Header from '@/components/Header';
+import ThemeProvider from '@/components/providers/ThemeProvider';
+
+export default function ArticleLayout({
+    children,
 }: {
-    childeren: React.ReactNode;
+    children: React.ReactNode;
 }) {
     return (
-        <html>
-            <body>
-                <header />
-                <body>{childeren}</body>
-            </body>
-        </html>
+        <>
+            <ThemeProvider>
+                <main>{children}</main>
+            </ThemeProvider>
+        </>
     );
 }

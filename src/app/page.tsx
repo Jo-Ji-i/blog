@@ -1,5 +1,6 @@
 // api/page.tsx <메인 페이지>
 
+import PostCard from '@/components/PostCard';
 import Image from 'next/image';
 import { Suspense } from 'react';
 
@@ -21,19 +22,22 @@ const getPosts = async () => {
 // 비동기로 정의
 const PostList = async () => {
     const posts = await getPosts();
-
     return (
-        <div className="">
-            <div>list</div>
-            <ul>
-                {posts.slice(0, 10).map((post: any) => (
-                    <li key={post.slug}>
-                        <h2> {post.title} </h2>
-                        <p> {post.excerpt} </p>
-                        <span> {post.date}</span>
-                    </li>
+        <div className="py-10">
+            <div className="flex flex-col items-center gap-5">
+                {posts.slice(0, 3).map((post: any, index: number) => (
+                    <PostCard
+                        key={post.slug}
+                        title={post.title}
+                        date={post.date}
+                        image={post.image}
+                        excerpt={post.excerpt}
+                        height="200"
+                        width="300"
+                        priority={index === 0}
+                    />
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };
@@ -41,7 +45,6 @@ const PostList = async () => {
 export default async function Home() {
     return (
         <main>
-            <h1> list </h1>
             <Suspense fallback={<p>Loading...</p>}>
                 <PostList />
             </Suspense>

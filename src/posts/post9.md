@@ -3,6 +3,7 @@ title: '첫 번째 포스트'
 date: '2025-03-24'
 excerpt: '이것은 첫 번째 포스트의 요약입니다.'
 tags: ['Next.js', 'Tailwind', 'React']
+image: 'post2-cover.png'
 ---
 
 # 첫 번째 포스트

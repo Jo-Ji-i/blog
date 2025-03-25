@@ -1,5 +1,14 @@
 import React from 'react';
 
-export default function Intro() {
-    return <div>Intro</div>;
+type IntroProps = {
+    title: string;
+};
+
+export default function Intro({ title }: IntroProps) {
+    return (
+        <div className="flex gap-3">
+            <h2 className="pl-2 text-2xl font-bold font-pretendard">{title}</h2>
+            <div></div>
+        </div>
+    );
 }

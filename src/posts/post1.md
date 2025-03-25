@@ -1,6 +1,6 @@
 ---
 title: '첫 번째 포스트'
-date: '2025-03-24'
+date: '2025-02-10'
 excerpt: '포스트의 설명을 적는 란입니다..'
 tags: ['Next.js', 'Tailwind', 'React']
 image: 'post1-cover.png'

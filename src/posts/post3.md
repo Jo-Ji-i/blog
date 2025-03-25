@@ -1,6 +1,6 @@
 ---
 title: '세 번째 포스트'
-date: '2025-03-24'
+date: '2025-03-01'
 excerpt: '이것은 첫 번째 포스트의 요약입니다.'
 tags: ['Next.js', 'Tailwind', 'React']
 image: 'post2-cover.png'

@@ -1,11 +1,11 @@
-// page.tsx <메인 페이지>
+// api/page.tsx <메인 페이지>
 
-import Image from 'next/image'
-
-export default function Home() {
-  return (
-    <div className="">
-      <p> main page</p>
-    </div>
-  )
+export default async function Home() {
+    return (
+        <>
+            <main>
+                <p> HOME</p>
+            </main>
+        </>
+    );
 }

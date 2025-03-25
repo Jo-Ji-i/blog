@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --theme-white: 255 255 255;
+        --theme-black: 0 0 0;
+        --theme-primary: 210 245 255;
+    }
+
+    :root.dark {
+        --theme-white: 0 0 0;
+        --theme-black: 255 255 255;
+        --theme-primary: 34 102 255;
+    }
+}

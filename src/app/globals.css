@@ -19,3 +19,53 @@
 body {
     font-family: var(--font-pretendard), sans-serif;
 }
+
+.markdown h1:first-child {
+    visibility: hidden;
+    display: none;
+}
+
+.markdown h1 {
+    font-size: 18px;
+    margin: 10px;
+}
+
+.markdown p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+.markdown ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+}
+.markdown code {
+    font-size: 12px;
+}
+
+.respone-code {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.respone-quote {
+    width: 90%;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .respone-code {
+        width: 80%;
+    }
+    .respone-quote {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .respone-code {
+        width: 80%;
+    }
+    .respone-quote {
+        width: 80%;
+    }
+}

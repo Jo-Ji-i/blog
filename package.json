@@ -12,7 +12,6 @@
     "-": "^0.0.1",
     "@svgr/webpack": "^8.1.0",
     "@types/react-syntax-highlighter": "^15.5.13",
-    "dompurify": "^3.2.4",
     "gray-matter": "^4.0.3",
     "marked": "^15.0.7",
     "next": "15.2.3",
@@ -24,6 +23,7 @@
     "remark": "^15.0.1",
     "remark-gfm": "^4.0.1",
     "remark-html": "^16.0.1",
+    "remark-slug": "^6.1.0",
     "save": "^2.9.0"
   },
   "devDependencies": {

@@ -6,13 +6,15 @@ import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula, nord } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import remarkGfm from 'remark-gfm';
+import remarkSlug from 'remark-slug';
 
 export default function PostRender({ content }: { content: string }) {
     return (
         <div className="markdown font-pretendard">
             <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
+                remarkPlugins={[remarkGfm, remarkSlug]}
                 components={{
+                    // 코드 블럭
                     code({ className, children }) {
                         const match = /language-(\w+)/.exec(className || '');
                         return match ? (
@@ -61,6 +63,7 @@ export default function PostRender({ content }: { content: string }) {
                             </blockquote>
                         );
                     },
+                    //이미지
                     img({ ...props }) {
                         return (
                             <img
@@ -73,11 +76,25 @@ export default function PostRender({ content }: { content: string }) {
                             />
                         );
                     },
+                    // em
                     em({ children, ...props }) {
                         return (
                             <span style={{ fontStyle: 'italic' }} {...props}>
                                 {children}
                             </span>
+                        );
+                    },
+                    h1({ children, ...props }) {
+                        const id = children
+                            ? children
+                                  .toString()
+                                  .toLowerCase()
+                                  .replace(/\s+/g, '-')
+                            : '';
+                        return (
+                            <h1 id={id} {...props}>
+                                {children}
+                            </h1>
                         );
                     },
                 }}

@@ -20,14 +20,38 @@ body {
     font-family: var(--font-pretendard), sans-serif;
 }
 
+.markdown {
+    line-height: 50px;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3 {
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
 .markdown h1:first-child {
     visibility: hidden;
     display: none;
 }
 
 .markdown h1 {
+    font-size: 30px;
+    margin-top: 2rem;
+}
+
+/* h2 스타일 */
+.markdown h2 {
+    font-size: 23px;
+    margin-top: 1.5rem;
+}
+
+/* h3 스타일 */
+.markdown h3 {
     font-size: 18px;
-    margin: 10px;
+    margin-top: 1rem;
 }
 
 .markdown p {
@@ -43,19 +67,26 @@ body {
 }
 
 .respone-code {
-    width: 90%;
+    display: inline-block;
+    width: 80%;
     margin: 0 auto;
 }
 
+.respone-code-line {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
 .respone-quote {
-    width: 90%;
+    width: 60%;
     margin: 0 auto;
 }
 
 @media (max-width: 768px) {
-    .respone-code {
+    /* .respone-code {
         width: 80%;
-    }
+    } */
     .respone-quote {
         width: 80%;
     }
@@ -63,7 +94,7 @@ body {
 
 @media (max-width: 480px) {
     .respone-code {
-        width: 80%;
+        font-size: 10px;
     }
     .respone-quote {
         width: 80%;

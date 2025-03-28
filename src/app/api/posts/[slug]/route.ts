@@ -3,21 +3,26 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import { NextResponse } from 'next/server';
 
-//파일 저장 경로
+// 파일 저장 경로
 const postsDirectory = path.join(process.cwd(), 'src/posts');
 
 export async function GET(
     req: Request,
-    { params }: { params: { slug: string } }
+    { params }: { params: { slug?: string } } // 공식 타입 적용
 ) {
     try {
-        console.log('slug', params);
-        const { slug } = params;
-        const filePath = path.join(postsDirectory, `/${slug}.md`);
-        console.log(filePath);
+        if (!params.slug) {
+            return NextResponse.json(
+                { error: 'Missing slug' },
+                { status: 400 }
+            );
+        }
+
+        const slug = params.slug;
+        const filePath = path.join(postsDirectory, `${slug}.md`);
 
         if (!fs.existsSync(filePath)) {
-            return NextResponse.json({ error: 'NOT FOUND' });
+            return NextResponse.json({ error: 'NOT FOUND' }, { status: 404 });
         }
 
         const fileContents = fs.readFileSync(filePath, 'utf-8');
@@ -30,7 +35,7 @@ export async function GET(
             image: data.image,
             excerpt: data.excerpt,
             tags: data.tags || [],
-            content: content,
+            content,
             format: 'markdown',
         });
     } catch (error) {

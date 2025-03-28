@@ -17,10 +17,10 @@ type Post = {
 
 async function getPost(slug: string): Promise<Post | null> {
     if (!slug) return null;
+    const apiUrl =
+        process.env.NEXT_PUBLIC_API_URL || 'https://your-default-api-url.com'; // API URL이 환경 변수로 설정된 경우
 
-    const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${slug}`
-    );
+    const res = await fetch(`${apiUrl}/api/posts/${slug}`);
     if (!res.ok) throw new Error('포스트 상세 조회 실패');
     return res.json();
 }

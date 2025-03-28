@@ -18,7 +18,7 @@ type Post = {
 
 // 메인 페이지에서 데이터 불러오기
 const getPosts = async () => {
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const apiUrl = process.env.VERCEL_URL;
     const res = await fetch(`${apiUrl}/api/posts`);
     const post = await res.json();
     const sortPost = post.sort(

@@ -18,7 +18,7 @@ type Post = {
 //
 async function getPost(slug: string): Promise<Post | null> {
     if (!slug) return null;
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+    const apiUrl = process.env.VERCEL_URL;
     console.log('apiUrl', apiUrl);
 
     const res = await fetch(`${apiUrl}/api/posts/${slug}`);

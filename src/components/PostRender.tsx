@@ -1,5 +1,4 @@
-// prettier-ignore
-"use client";
+'use client';
 
 import React from 'react';
 import Image from 'next/image';
@@ -9,7 +8,8 @@ import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import remarkGfm from 'remark-gfm';
 import remarkSlug from 'remark-slug';
 
-export default function PostRender({ content }: { content: string }) {
+const PostRender: React.FC<{ content: string }> = ({ content }) => {
+    // Heading renderer with `displayName`
     const headingRenderer =
         (Tag: 'h1' | 'h2' | 'h3') =>
         ({ children, ...props }: { children?: React.ReactNode }) => {
@@ -23,6 +23,7 @@ export default function PostRender({ content }: { content: string }) {
                 </Tag>
             );
         };
+
     headingRenderer.displayName = 'HeadingRenderer';
 
     return (
@@ -30,7 +31,6 @@ export default function PostRender({ content }: { content: string }) {
             <ReactMarkdown
                 remarkPlugins={[remarkGfm, remarkSlug]}
                 components={{
-                    // 코드
                     code({ className, children }) {
                         const match = /language-(\w+)/.exec(className || '');
                         return match ? (
@@ -57,17 +57,16 @@ export default function PostRender({ content }: { content: string }) {
                                 className="respone-code-line"
                                 PreTag="div"
                                 customStyle={{
-                                    padding: '4px', // 내부 여백 조정
-                                    borderRadius: '8px', // 모서리 둥글게
-                                    overflow: 'hidden', // 스크롤 조정
-                                    margin: '3px', // 기본 마진 제거
+                                    padding: '4px',
+                                    borderRadius: '8px',
+                                    overflow: 'hidden',
+                                    margin: '3px',
                                 }}
                             >
                                 {String(children).replace(/\n$/, '')}
                             </SyntaxHighlighter>
                         );
                     },
-                    // 인용문 (>)
                     blockquote({ children, ...props }) {
                         return (
                             <blockquote
@@ -84,24 +83,21 @@ export default function PostRender({ content }: { content: string }) {
                             </blockquote>
                         );
                     },
-                    //이미지
                     img({ src, ...props }) {
                         const validSrc = src
                             ? src.replace('../../../../public/', '/')
                             : '';
-
                         return (
                             <Image
                                 style={{ maxWidth: '40vw' }}
                                 src={validSrc}
                                 alt="MarkdownRenderer__Image"
-                                width={500} // Provide width
-                                height={300} // Provide height
+                                width={500}
+                                height={300}
                             />
                         );
                     },
 
-                    // em
                     em({ children, ...props }) {
                         return (
                             <span style={{ fontStyle: 'italic' }} {...props}>
@@ -110,7 +106,6 @@ export default function PostRender({ content }: { content: string }) {
                         );
                     },
                     p: ({ ...props }) => <div {...props} />,
-                    // heading 요소들에 id 추가
                     h1: headingRenderer('h1'),
                     h2: headingRenderer('h2'),
                     h3: headingRenderer('h3'),
@@ -120,4 +115,9 @@ export default function PostRender({ content }: { content: string }) {
             </ReactMarkdown>
         </div>
     );
-}
+};
+
+// Add `displayName` for the PostRender component
+PostRender.displayName = 'PostRender';
+
+export default PostRender;

@@ -9,7 +9,7 @@ import remarkGfm from 'remark-gfm';
 import remarkSlug from 'remark-slug';
 
 const PostRender: React.FC<{ content: string }> = ({ content }) => {
-    // Heading renderer with `displayName`
+    // eslint-disable-next-line react/display-name
     const headingRenderer =
         (Tag: 'h1' | 'h2' | 'h3') =>
         ({ children, ...props }: { children?: React.ReactNode }) => {

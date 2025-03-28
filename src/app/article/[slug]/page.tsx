@@ -15,13 +15,10 @@ type Post = {
     image: string;
 };
 
-//const apiUrl = process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` :  process.env.NEXT_PUBLIC_API_URL; // 로컬에서는 localhost, 배포된 환경에서는 Vercel URL
-
+//
 async function getPost(slug: string): Promise<Post | null> {
     if (!slug) return null;
-    const apiUrl = process.env.VERCEL_URL
-        ? `https://${process.env.VERCEL_URL}`
-        : process.env.NEXT_PUBLIC_API_URL; // API URL이 환경 변수로 설정된 경우
+    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'VERCEL_API_URL'; // API URL이 환경 변수로 설정된 경우
 
     const res = await fetch(`${apiUrl}/api/posts/${slug}`);
     if (!res.ok) throw new Error('포스트 상세 조회 실패');

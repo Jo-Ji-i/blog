@@ -8,11 +8,11 @@ const postsDirectory = path.join(process.cwd(), 'src/posts');
 
 export async function GET(
     req: Request,
-    { params }: { params: { slug: string } }
+    { params }: { params: Promise<{ slug: string }> }
 ) {
     try {
         // params에서 slug 추출
-        const { slug } = params;
+        const { slug } = await params;
 
         // 파일 경로 설정
         const filePath = path.join(postsDirectory, `${slug}.md`);

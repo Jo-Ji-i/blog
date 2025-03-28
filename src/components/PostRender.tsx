@@ -2,6 +2,7 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
@@ -84,18 +85,22 @@ export default function PostRender({ content }: { content: string }) {
                         );
                     },
                     //이미지
-                    img({ ...props }) {
+                    img({ src, ...props }) {
+                        const validSrc = src
+                            ? src.replace('../../../../public/', '/')
+                            : '';
+
                         return (
-                            <img
+                            <Image
                                 style={{ maxWidth: '40vw' }}
-                                src={props.src?.replace(
-                                    '../../../../public/',
-                                    '/'
-                                )}
+                                src={validSrc}
                                 alt="MarkdownRenderer__Image"
+                                width={500} // Provide width
+                                height={300} // Provide height
                             />
                         );
                     },
+
                     // em
                     em({ children, ...props }) {
                         return (
@@ -104,7 +109,7 @@ export default function PostRender({ content }: { content: string }) {
                             </span>
                         );
                     },
-                    p: ({ node, ...props }) => <div {...props} />,
+                    p: ({ ...props }) => <div {...props} />,
                     // heading 요소들에 id 추가
                     h1: headingRenderer('h1'),
                     h2: headingRenderer('h2'),

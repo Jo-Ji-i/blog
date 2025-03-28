@@ -9,8 +9,7 @@ import remarkGfm from 'remark-gfm';
 import remarkSlug from 'remark-slug';
 
 const PostRender: React.FC<{ content: string }> = ({ content }) => {
-    // Heading renderer with `displayName`
-    const headingRenderer =
+    const HeadingRenderer =
         (Tag: 'h1' | 'h2' | 'h3') =>
         ({ children, ...props }: { children?: React.ReactNode }) => {
             const id = children
@@ -24,8 +23,7 @@ const PostRender: React.FC<{ content: string }> = ({ content }) => {
             );
         };
 
-    // Explicitly set `displayName`
-    headingRenderer.displayName = 'HeadingRenderer';
+    HeadingRenderer.displayName = 'HeadingRenderer';
 
     return (
         <div className="markdown font-pretendard">
@@ -107,9 +105,9 @@ const PostRender: React.FC<{ content: string }> = ({ content }) => {
                         );
                     },
                     p: ({ ...props }) => <div {...props} />,
-                    h1: headingRenderer('h1'),
-                    h2: headingRenderer('h2'),
-                    h3: headingRenderer('h3'),
+                    h1: HeadingRenderer('h1'),
+                    h2: HeadingRenderer('h2'),
+                    h3: HeadingRenderer('h3'),
                 }}
             >
                 {content}

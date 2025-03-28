@@ -3,7 +3,7 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import { NextResponse } from 'next/server';
 
-//마크다운 파일 저장 경로
+//파일 저장 경로
 const postsDirectory = path.join(process.cwd(), 'src/posts');
 
 export async function GET() {
@@ -25,7 +25,6 @@ export async function GET() {
                 content,
             };
         });
-
         return NextResponse.json(posts);
     } catch (error) {
         console.error('Error reading posts:', error);

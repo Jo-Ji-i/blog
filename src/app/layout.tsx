@@ -36,7 +36,13 @@ export default function RootLayout({
 }>) {
     return (
         <html>
-            <body className={`${pretendard.variable} font-pretendard`}>
+            <meta
+                name="viewport"
+                content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+            />
+            <body
+                className={`${pretendard.variable} font-pretendard min-h-svh min-w-96`}
+            >
                 <ThemeProvider>
                     <Header />
                     <main>{children}</main>

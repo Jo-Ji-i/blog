@@ -15,3 +15,101 @@
         --theme-primary: 34 102 255;
     }
 }
+
+body {
+    font-family: var(--font-pretendard), sans-serif;
+}
+
+.markdown {
+    line-height: 30px;
+    white-space: pre-wrap;
+}
+
+.markdown h1,
+.markdown h2,
+.markdown h3 {
+    font-weight: bold;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+}
+
+.markdown h1:first-child {
+    visibility: hidden;
+    display: none;
+}
+
+.markdown h1 {
+    font-size: 30px;
+    margin: 2px;
+}
+
+/* h2 스타일 */
+.markdown h2 {
+    font-size: 23px;
+    margin: 2px;
+}
+
+/* h3 스타일 */
+.markdown h3 {
+    font-size: 18px;
+    margin: 2px;
+}
+
+.markdown p {
+    font-size: 16px;
+    line-height: 1.5;
+}
+/* 리스트 스타일 */
+.markdown ul {
+    list-style-type: disc;
+    margin-left: 20px;
+}
+
+.markdown ol {
+    list-style-type: decimal;
+    margin-left: 20px;
+}
+
+.markdown li {
+    list-style-type: decimal;
+    margin-left: 20px;
+}
+
+.markdown code {
+    font-size: 12px;
+}
+
+.respone-code {
+    display: inline-block;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.respone-code-line {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+}
+
+.respone-quote {
+    width: 60%;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    /* .respone-code {
+        width: 80%;
+    } */
+    .respone-quote {
+        width: 80%;
+    }
+}
+
+@media (max-width: 480px) {
+    .respone-code {
+        font-size: 10px;
+    }
+    .respone-quote {
+        width: 80%;
+    }
+}

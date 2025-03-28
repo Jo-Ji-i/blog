@@ -8,11 +8,13 @@ const postsDirectory = path.join(process.cwd(), 'src/posts');
 
 export async function GET(
     req: Request,
-    context: { params: { slug: string } } // 타입을 정확히 지정
+    { params }: { params: { slug: string } }
 ) {
     try {
-        const { slug } = context.params; //  `await` 필요 없음
+        // params에서 slug 추출
+        const { slug } = params;
 
+        // 파일 경로 설정
         const filePath = path.join(postsDirectory, `${slug}.md`);
 
         if (!fs.existsSync(filePath)) {

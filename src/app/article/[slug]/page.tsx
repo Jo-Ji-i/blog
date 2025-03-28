@@ -59,7 +59,7 @@ export default async function Page({
                     />
                 </div>
                 <div className="relative flex justify-end pb-5">
-                    <p className="top-0 right-0 hidden pt-2 pr-5 text-base absoulte md:block md:font-semibold lg:text-lg">
+                    <p className="top-0 right-0 hidden pt-2 pr-5 text-sm absoulte md:block md:font-semibold lg:text-lg">
                         {post.excerpt}
                     </p>
                 </div>
@@ -70,7 +70,7 @@ export default async function Page({
                 </div>
             </div>
             {/* 본문 영역 */}
-            <div className="flex-1 mt-10 pr-70">
+            <div className="flex-1 mt-10 mb-20 pr-70">
                 {post.content && <PostRender content={post.content} />}
             </div>
         </div>

@@ -1,5 +1,3 @@
-import React from 'react';
-
 // 마크다운 페이지에서 헤딩 요소들을 가져오기
 
 export const getHeadingToc = async (source: string) => {

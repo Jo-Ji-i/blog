@@ -1,10 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import matter from 'gray-matter';
-import { remark } from 'remark';
-import reactMarkdown from 'react-markdown'; // react-markdown을 사용
 import { NextResponse } from 'next/server';
-import remarkGfm from 'remark-gfm';
 
 //파일 저장 경로
 const postsDirectory = path.join(process.cwd(), 'src/posts');

@@ -1,4 +1,4 @@
-import Header from '@/components/Header';
+import Header from '@/components/Headers';
 import ThemeProvider from '@/components/providers/ThemeProvider';
 
 export default function ArticleLayout({

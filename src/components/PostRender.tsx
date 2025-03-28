@@ -4,10 +4,9 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dracula, nord } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import remarkGfm from 'remark-gfm';
 import remarkSlug from 'remark-slug';
-import { getHeadingToc } from './getHeadingToc';
 
 export default function PostRender({ content }: { content: string }) {
     const headingRenderer =

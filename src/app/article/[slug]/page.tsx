@@ -15,7 +15,7 @@ type Post = {
     image: string;
 };
 
-async function getPost(slug: string): Promise<Post | any> {
+async function getPost(slug: string): Promise<Post | null> {
     if (!slug) return null;
 
     const res = await fetch(

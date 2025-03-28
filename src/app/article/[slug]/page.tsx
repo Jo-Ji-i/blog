@@ -25,7 +25,9 @@ async function getPost(slug: string): Promise<Post | null> {
         'http://localhost:3000/';
     console.log('apiUrl', apiUrl);
 
-    const res = await fetch(`${apiUrl}/api/posts/${slug}`);
+    const res = await fetch(`${apiUrl}/api/posts/${slug}`, {
+        cache: 'no-store',
+    });
     if (!res.ok) throw new Error('포스트 상세 조회 실패');
     return res.json();
 }

@@ -19,17 +19,15 @@ type Post = {
 // 메인 페이지에서 데이터 불러오기
 const getPosts = async () => {
     const apiUrl =
-        process?.env?.NEXT_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
-        process?.env?.NEXT_PUBLIC_VERCEL_URL ?? // Automatically set by Vercel.
-        'http://localhost:3000/';
-    const res = await fetch(`${apiUrl}/api/posts`);
+        process?.env?.NEXT_PUBLIC_SITE_URL ??
+        process?.env?.NEXT_PUBLIC_VERCEL_URL ??
+        'http://localhost:3000';
+    const res = await fetch(`${apiUrl}/api/posts`, { cache: 'no-store' }); //  캐싱 방지
     const post = await res.json();
-    const sortPost = post.sort(
+    return post.sort(
         (a: Post, b: Post) =>
             new Date(b.date).getTime() - new Date(a.date).getTime()
     );
-    if (!res.ok) throw new Error('불러오기 실패');
-    return sortPost;
 };
 
 // 비동기로 정의

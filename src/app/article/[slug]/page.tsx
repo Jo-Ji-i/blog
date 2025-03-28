@@ -21,6 +21,7 @@ async function getPost(slug: string): Promise<Post | null> {
     const apiUrl =
         process.env.NEXT_PUBLIC_API_URL ||
         'https://blog-5560pt1p8-jimmis2s-projects.vercel.app';
+    console.log('apiUrl', apiUrl);
 
     const res = await fetch(`${apiUrl}/api/posts/${slug}`);
     if (!res.ok) throw new Error('포스트 상세 조회 실패');

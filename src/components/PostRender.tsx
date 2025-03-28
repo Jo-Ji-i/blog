@@ -22,6 +22,7 @@ export default function PostRender({ content }: { content: string }) {
                 </Tag>
             );
         };
+    headingRenderer.displayName = 'HeadingRenderer';
 
     return (
         <div className="markdown font-pretendard">
@@ -103,7 +104,7 @@ export default function PostRender({ content }: { content: string }) {
                             </span>
                         );
                     },
-                    p: ({ node, ...props }) => <div {...props} />, // <p> 태그 대신 <div>로 렌더링
+                    p: ({ node, ...props }) => <div {...props} />,
                     // heading 요소들에 id 추가
                     h1: headingRenderer('h1'),
                     h2: headingRenderer('h2'),

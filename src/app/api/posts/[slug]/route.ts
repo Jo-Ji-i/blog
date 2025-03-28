@@ -6,13 +6,10 @@ import { NextResponse } from 'next/server';
 //파일 저장 경로
 const postsDirectory = path.join(process.cwd(), 'src/posts');
 
-export async function GET(
-    req: Request,
-    { params }: { params: { slug: string } }
-) {
+export async function GET(req: Request, context: { params: { slug: string } }) {
     try {
-        console.log('slug', params);
-        const { slug } = params;
+        const { params } = context;
+        const slug = await params.slug;
         const filePath = path.join(postsDirectory, `/${slug}.md`);
         console.log(filePath);
 

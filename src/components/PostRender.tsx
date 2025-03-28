@@ -9,21 +9,18 @@ import remarkGfm from 'remark-gfm';
 import remarkSlug from 'remark-slug';
 
 const PostRender: React.FC<{ content: string }> = ({ content }) => {
-    const HeadingRenderer =
-        (Tag: 'h1' | 'h2' | 'h3') =>
-        ({ children, ...props }: { children?: React.ReactNode }) => {
+    const HeadingRenderer = (Tag: 'h1' | 'h2' | 'h3') => {
+        const NamedHeading = ({ children }: { children?: React.ReactNode }) => {
             const id = children
                 ? children.toString().toLowerCase().replace(/\s+/g, '-')
                 : '';
 
-            return (
-                <Tag id={id} {...props}>
-                    {children}
-                </Tag>
-            );
+            return <Tag id={id}>{children}</Tag>;
         };
 
-    HeadingRenderer.displayName = 'HeadingRenderer';
+        NamedHeading.displayName = `HeadingRenderer(${Tag})`; // Displayname 에러 방지
+        return NamedHeading;
+    };
 
     return (
         <div className="markdown font-pretendard">
@@ -82,7 +79,7 @@ const PostRender: React.FC<{ content: string }> = ({ content }) => {
                             </blockquote>
                         );
                     },
-                    img({ src, ...props }) {
+                    img({ src }) {
                         const validSrc = src
                             ? src.replace('../../../../public/', '/')
                             : '';
@@ -115,8 +112,5 @@ const PostRender: React.FC<{ content: string }> = ({ content }) => {
         </div>
     );
 };
-
-// Explicitly set `displayName` for PostRender component
-PostRender.displayName = 'PostRender';
 
 export default PostRender;

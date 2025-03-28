@@ -25,7 +25,6 @@ const getPosts = async () => {
         (a: Post, b: Post) =>
             new Date(b.date).getTime() - new Date(a.date).getTime()
     );
-    console.log(sortPost);
     if (!res.ok) throw new Error('불러오기 실패');
     return sortPost;
 };
@@ -48,6 +47,7 @@ const PostSection = async () => {
                             height="200"
                             width="250"
                             priority={index === 0}
+                            link={`/article/${post.slug}`}
                         />
                     ))}
                 </div>
@@ -59,6 +59,7 @@ const PostSection = async () => {
                                 title={post.title}
                                 date={post.date}
                                 excerpt={post.excerpt}
+                                link={`/article/${post.slug}`}
                             />
                         ))}
                     </div>

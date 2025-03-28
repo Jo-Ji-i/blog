@@ -18,7 +18,9 @@ type Post = {
 //
 async function getPost(slug: string): Promise<Post | null> {
     if (!slug) return null;
-    const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'VERCEL_API_URL'; // API URL이 환경 변수로 설정된 경우
+    const apiUrl =
+        process.env.NEXT_PUBLIC_API_URL ||
+        'https://blog-5560pt1p8-jimmis2s-projects.vercel.app';
 
     const res = await fetch(`${apiUrl}/api/posts/${slug}`);
     if (!res.ok) throw new Error('포스트 상세 조회 실패');

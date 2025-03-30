@@ -22,7 +22,6 @@ export async function GET() {
                 image: data.image,
                 excerpt: data.excerpt,
                 tags: data.tags || [],
-                content,
             };
         });
         return NextResponse.json(posts);

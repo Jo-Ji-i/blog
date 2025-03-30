@@ -31,11 +31,16 @@ const getPosts = async () => {
     console.log('응답 상태 코드:', res.status); // 200이 아니면 API 문제!
     console.log('응답 콘텐츠 타입:', res.headers.get('content-type')); // application/json이 나와야 정상!
 
-    const post = await res.json();
-    return post.sort(
-        (a: Post, b: Post) =>
-            new Date(b.date).getTime() - new Date(a.date).getTime()
-    );
+    if (res.ok) {
+        const post = await res.json();
+        return post.sort(
+            (a: Post, b: Post) =>
+                new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
+    } else {
+        console.error('게시물 조회 실패');
+        return res.text(); // JSON이 아닌 경우 HTML로 받은 내용을 텍스트로 반환
+    }
 };
 
 // 비동기로 정의

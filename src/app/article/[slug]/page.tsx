@@ -20,8 +20,11 @@ type Post = {
 async function getPost(slug: string): Promise<Post | null> {
     if (!slug) return null;
     const apiUrl =
-        process?.env?.NEXT_PUBLIC_SITE_URL ?? // Set this to your site URL in production env.
-        process?.env?.NEXT_PUBLIC_VERCEL_URL ?? // Automatically set by Vercel.
+        process?.env?.NEXT_PUBLIC_SITE_URL ??
+        `https://${process.env.NEXT_PUBLIC_VERCEL_URL?.replace(
+            /^https?:\/\//,
+            ''
+        )}` ??
         'http://localhost:3000/';
     console.log('apiUrl', apiUrl);
 

@@ -20,8 +20,11 @@ type Post = {
 const getPosts = async () => {
     const apiUrl =
         process?.env?.NEXT_PUBLIC_SITE_URL ??
-        process?.env?.NEXT_PUBLIC_VERCEL_URL ??
-        'http://localhost:3000';
+        `https://${process.env.NEXT_PUBLIC_VERCEL_URL?.replace(
+            /^https?:\/\//,
+            ''
+        )}` ??
+        'http://localhost:3000/';
     const res = await fetch(`${apiUrl}/api/posts`, { cache: 'no-store' }); //  캐싱 방지
     const post = await res.json();
     return post.sort(

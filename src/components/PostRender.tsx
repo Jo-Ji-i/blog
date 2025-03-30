@@ -2,27 +2,26 @@
 "use client";
 
 import React from 'react';
+import Image from 'next/image';
 import ReactMarkdown from 'react-markdown';
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dracula, nord } from 'react-syntax-highlighter/dist/cjs/styles/prism';
+import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import remarkGfm from 'remark-gfm';
 import remarkSlug from 'remark-slug';
-import { getHeadingToc } from './getHeadingToc';
 
 export default function PostRender({ content }: { content: string }) {
-    const headingRenderer =
-        (Tag: 'h1' | 'h2' | 'h3') =>
-        ({ children, ...props }: { children?: React.ReactNode }) => {
+    const HeadingRenderer = (Tag: 'h1' | 'h2' | 'h3') => {
+        const NamedHeading = ({ children }: { children?: React.ReactNode }) => {
             const id = children
                 ? children.toString().toLowerCase().replace(/\s+/g, '-')
                 : '';
 
-            return (
-                <Tag id={id} {...props}>
-                    {children}
-                </Tag>
-            );
+            return <Tag id={id}>{children}</Tag>;
         };
+
+        NamedHeading.displayName = `HeadingRenderer(${Tag})`; // Displayname 에러 방지
+        return NamedHeading;
+    };
 
     return (
         <div className="markdown font-pretendard">
@@ -84,15 +83,17 @@ export default function PostRender({ content }: { content: string }) {
                         );
                     },
                     //이미지
-                    img({ ...props }) {
+                    img({ src }) {
+                        const validSrc = src
+                            ? src.replace('../../../../public/', '/')
+                            : '';
                         return (
-                            <img
+                            <Image
                                 style={{ maxWidth: '40vw' }}
-                                src={props.src?.replace(
-                                    '../../../../public/',
-                                    '/'
-                                )}
+                                src={validSrc}
                                 alt="MarkdownRenderer__Image"
+                                width={500}
+                                height={300}
                             />
                         );
                     },
@@ -106,9 +107,9 @@ export default function PostRender({ content }: { content: string }) {
                     },
                     p: ({ node, ...props }) => <div {...props} />, // <p> 태그 대신 <div>로 렌더링
                     // heading 요소들에 id 추가
-                    h1: headingRenderer('h1'),
-                    h2: headingRenderer('h2'),
-                    h3: headingRenderer('h3'),
+                    h1: HeadingRenderer('h1'),
+                    h2: HeadingRenderer('h2'),
+                    h3: HeadingRenderer('h3'),
                 }}
             >
                 {content}

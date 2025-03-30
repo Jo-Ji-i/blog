@@ -15,12 +15,10 @@ type PostCardProps = {
 
 const PostCard = ({
     title,
-    excerpt,
     date,
     image,
     height,
     width,
-    priority,
     link,
 }: PostCardProps) => {
     return (

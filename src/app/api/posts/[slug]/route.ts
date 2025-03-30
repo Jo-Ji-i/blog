@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import matter from 'gray-matter';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
 //파일 저장 경로
 const postsDirectory = path.join(process.cwd(), 'src/posts');

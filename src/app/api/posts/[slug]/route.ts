@@ -5,14 +5,13 @@ import { NextRequest, NextResponse } from 'next/server';
 
 //파일 저장 경로
 const postsDirectory = path.join(process.cwd(), 'src/posts');
-
 export async function GET(
-    req: NextRequest,
-    { params }: { params: { slug: string } }
+    req: Request,
+    { params }: { params: Promise<{ slug: string }> }
 ) {
     try {
         console.log('slug', params);
-        const { slug } = params;
+        const { slug } = await params;
         const filePath = path.join(postsDirectory, `/${slug}.md`);
         console.log(filePath);
 

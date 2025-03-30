@@ -3,21 +3,6 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import { NextResponse } from 'next/server';
 
-// CORS 설정 함수
-export function middleware(req: Request) {
-    const res = NextResponse.next();
-
-    // CORS 헤더 추가
-    res.headers.set('Access-Control-Allow-Origin', '*'); // 모든 도메인 허용
-    res.headers.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-    res.headers.set(
-        'Access-Control-Allow-Headers',
-        'Content-Type, Authorization'
-    );
-
-    return res;
-}
-
 //파일 저장 경로
 const postsDirectory = path.join(process.cwd(), 'src/posts');
 
@@ -39,6 +24,22 @@ export async function GET() {
                 tags: data.tags || [],
             };
         });
+
+        const response = NextResponse.json({
+            message: 'Posts fetched successfully',
+        });
+
+        // CORS 헤더 추가
+        response.headers.set('Access-Control-Allow-Origin', '*'); // 모든 도메인 허용
+        response.headers.set(
+            'Access-Control-Allow-Methods',
+            'GET, POST, PUT, DELETE'
+        );
+        response.headers.set(
+            'Access-Control-Allow-Headers',
+            'Content-Type, Authorization'
+        );
+
         return NextResponse.json(posts);
     } catch (error) {
         console.error('Error reading posts:', error);

@@ -46,6 +46,7 @@ const getPosts = async () => {
 // 비동기로 정의
 const PostSection = async () => {
     const posts = await getPosts();
+
     return (
         <>
             <div className="flex flex-col gap-3 pt-3">

@@ -19,14 +19,24 @@ type Post = {
 
 // 메인 페이지에서 데이터 불러오기
 const getPosts = async () => {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/posts`);
+    const apiUrl =
+        process?.env?.NEXT_PUBLIC_SITE_URL ??
+        `https://${process.env.NEXT_PUBLIC_VERCEL_URL?.replace(
+            /^https?:\/\//,
+            ''
+        )}` ??
+        'http://localhost:3000/';
+    const res = await fetch(`${apiUrl}/api/posts`, { cache: 'no-store' }); //  캐싱 방지
+
+    console.log('API 요청 주소: ', apiUrl); // API 주소
+    console.log('응답 상태 코드:', res.status); // 200이 아니면 API 문제!
+    console.log('응답 콘텐츠 타입:', res.headers.get('content-type')); // application/json이 나와야 정상!
+
     const post = await res.json();
-    const sortPost = post.sort(
+    return post.sort(
         (a: Post, b: Post) =>
             new Date(b.date).getTime() - new Date(a.date).getTime()
     );
-    if (!res.ok) throw new Error('불러오기 실패');
-    return sortPost;
 };
 
 // 비동기로 정의

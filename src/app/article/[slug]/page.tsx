@@ -15,12 +15,25 @@ type Post = {
     image: string;
 };
 
-async function getPost(slug: string): Promise<Post | any> {
+async function getPost(slug: string): Promise<Post | null> {
     if (!slug) return null;
+    const apiUrl =
+        process?.env?.NEXT_PUBLIC_SITE_URL ??
+        `https://${process.env.NEXT_PUBLIC_VERCEL_URL?.replace(
+            /^https?:\/\//,
+            ''
+        )}` ??
+        'http://localhost:3000/';
+    console.log('apiUrl', apiUrl);
 
-    const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/api/posts/${slug}`
-    );
+    const res = await fetch(`${apiUrl}/api/posts/${slug}`, {
+        cache: 'no-store',
+    });
+
+    console.log('응답 URL', apiUrl);
+    console.log('응답 상태 코드:', res.status); // 200이 아니면 API 문제!
+    console.log('응답 콘텐츠 타입:', res.headers.get('content-type')); // application/json이 나와야 정상!
+
     if (!res.ok) throw new Error('포스트 상세 조회 실패');
     return res.json();
 }

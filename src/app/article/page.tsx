@@ -25,11 +25,12 @@ const getPosts = async () => {
             ''
         )}` ??
         'http://localhost:3000/';
-    const res = await fetch(`${apiUrl}/api/posts`, { cache: 'no-store' }); //  캐싱 방지
+
+    const res = await fetch(`${apiUrl}/api/posts`, { cache: 'no-store' }); // 캐싱 방지
 
     console.log('API 요청 주소: ', apiUrl); // API 주소
-    console.log('응답 상태 코드:', res.status); // 200이 아니면 API 문제!
-    console.log('응답 콘텐츠 타입:', res.headers.get('content-type')); // application/json이 나와야 정상!
+    console.log('응답 상태 코드:', res.status); // 응답 상태 코드
+    console.log('응답 콘텐츠 타입:', res.headers.get('content-type')); // 응답 타입 확인
 
     if (res.ok) {
         const post = await res.json();
@@ -39,7 +40,9 @@ const getPosts = async () => {
         );
     } else {
         console.error('게시물 조회 실패');
-        return res.text(); // JSON이 아닌 경우 HTML로 받은 내용을 텍스트로 반환
+        const errorText = await res.text(); // 오류 페이지 텍스트
+        console.error('응답 오류 내용:', errorText); // 오류 내용 로깅
+        return errorText; // JSON이 아닌 경우 HTML로 받은 내용을 텍스트로 반환
     }
 };
 

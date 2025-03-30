@@ -105,7 +105,7 @@ export default function PostRender({ content }: { content: string }) {
                             </span>
                         );
                     },
-                    p: ({ node, ...props }) => <div {...props} />, // <p> 태그 대신 <div>로 렌더링
+                    p: ({ ...props }) => <div {...props} />,
                     // heading 요소들에 id 추가
                     h1: HeadingRenderer('h1'),
                     h2: HeadingRenderer('h2'),

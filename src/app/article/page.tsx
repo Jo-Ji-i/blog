@@ -3,7 +3,6 @@
 import React from 'react';
 
 import PostCard from '@/components/PostCard';
-import Image from 'next/image';
 import { Suspense } from 'react';
 import Intro from '@/components/Intro';
 import PostList from '@/components/PostList';

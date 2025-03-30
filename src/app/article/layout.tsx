@@ -1,4 +1,3 @@
-import Header from '@/components/HeaderDefalut';
 import ThemeProvider from '@/components/providers/ThemeProvider';
 
 export default function ArticleLayout({

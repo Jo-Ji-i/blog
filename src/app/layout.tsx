@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google';
 import './globals.css';
 import localFont from 'next/font/local';
 
-import Header from '@/components/Header';
+import Header from '@/components/HeaderDefalut';
 import ThemeProvider from '@/components/providers/ThemeProvider';
 
 // varibable : TailwindCSS에서 이용하기 위해 작성

@@ -2,7 +2,7 @@ import React from 'react';
 import ThemeButton from './buttons/ThemeButton';
 import Link from 'next/link';
 
-const Header = () => {
+const HeaderDefault = () => {
     return (
         <>
             <div className="flex items-center justify-between h-10 gap-3 px-2 m-2 font-pretendard">
@@ -20,4 +20,4 @@ const Header = () => {
     );
 };
 
-export default Header;
+export default HeaderDefault;

@@ -13,7 +13,7 @@ export async function GET() {
         const posts = files.map((file) => {
             const filePath = path.join(postsDirectory, file);
             const fileContents = fs.readFileSync(filePath, 'utf-8');
-            const { data, content } = matter(fileContents);
+            const { data } = matter(fileContents);
 
             return {
                 slug: file.replace('.md', ''), // 파일명을 slug로 변환

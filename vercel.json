@@ -1,0 +1,13 @@
+{
+    "version": 2,
+    "routes": [
+        {
+            "src": "/api/posts",
+            "dest": "/app/api/posts/route"
+        },
+        {
+            "src": "/api/posts/(.*)",
+            "dest": "/app/api/posts/[slug]/route"
+        }
+    ]
+}

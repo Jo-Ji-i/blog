@@ -5,17 +5,16 @@ import { NextResponse } from 'next/server';
 
 // 파일 저장 경로
 const postsDirectory = path.join(process.cwd(), 'src/posts');
-
 export async function GET(
     req: Request,
     { params }: { params: Promise<{ slug: string }> }
 ) {
     try {
-        // params에서 slug 추출
+        console.log('slug', params);
         const { slug } = await params;
+        const filePath = path.join(postsDirectory, `/${slug}.md`);
+        console.log(filePath);
 
-        // 파일 경로 설정
-        const filePath = path.join(postsDirectory, `${slug}.md`);
 
         if (!fs.existsSync(filePath)) {
             return NextResponse.json({ error: 'NOT FOUND' }, { status: 404 });

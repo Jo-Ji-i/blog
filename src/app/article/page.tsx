@@ -14,6 +14,7 @@ type Post = {
     excerpt: string;
     tags: string[];
     image: string;
+    category: string;
 };
 
 // 메인 페이지에서 데이터 불러오기
@@ -25,17 +26,31 @@ const getPosts = async () => {
             ''
         )}` ??
         'http://localhost:3000/';
-    const res = await fetch(`${apiUrl}/api/posts`, { cache: 'no-store' }); //  캐싱 방지
-    const post = await res.json();
-    return post.sort(
-        (a: Post, b: Post) =>
-            new Date(b.date).getTime() - new Date(a.date).getTime()
-    );
+
+    const res = await fetch(`${apiUrl}/api/posts`, { cache: 'no-store' }); // 캐싱 방지
+
+    console.log('API 요청 주소: ', apiUrl); // API 주소
+    console.log('응답 상태 코드:', res.status); // 응답 상태 코드
+    console.log('응답 콘텐츠 타입:', res.headers.get('content-type')); // 응답 타입 확인
+
+    if (res.ok) {
+        const post = await res.json();
+        return post.sort(
+            (a: Post, b: Post) =>
+                new Date(b.date).getTime() - new Date(a.date).getTime()
+        );
+    } else {
+        console.error('게시물 조회 실패');
+        const errorText = await res.text(); // 오류 페이지 텍스트
+        console.error('응답 오류 내용:', errorText); // 오류 내용 로깅
+        return errorText; // JSON이 아닌 경우 HTML로 받은 내용을 텍스트로 반환
+    }
 };
 
 // 비동기로 정의
 const PostSection = async () => {
     const posts = await getPosts();
+
     return (
         <>
             <div className="flex flex-col gap-3 pt-3">

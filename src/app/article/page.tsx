@@ -14,6 +14,7 @@ type Post = {
     excerpt: string;
     tags: string[];
     image: string;
+    category: string;
 };
 
 // 메인 페이지에서 데이터 불러오기

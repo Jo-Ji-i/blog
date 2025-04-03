@@ -4,6 +4,7 @@ date: '2025-02-10'
 excerpt: '전역 변수의 문제점에 대해...'
 tags: ['Next.js', 'Tailwind', 'React']
 image: 'post1-cover.png'
+category: 'FE'
 ---
 
 # 전역 변수의 문제점

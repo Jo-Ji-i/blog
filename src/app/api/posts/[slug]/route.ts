@@ -3,7 +3,7 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import { NextResponse } from 'next/server';
 
-//파일 저장 경로
+// 파일 저장 경로
 const postsDirectory = path.join(process.cwd(), 'src/posts');
 export async function GET(
     req: Request,
@@ -15,8 +15,9 @@ export async function GET(
         const filePath = path.join(postsDirectory, `/${slug}.md`);
         console.log(filePath);
 
+
         if (!fs.existsSync(filePath)) {
-            return NextResponse.json({ error: 'NOT FOUND' });
+            return NextResponse.json({ error: 'NOT FOUND' }, { status: 404 });
         }
 
         const fileContents = fs.readFileSync(filePath, 'utf-8');
@@ -29,7 +30,7 @@ export async function GET(
             image: data.image,
             excerpt: data.excerpt,
             tags: data.tags || [],
-            content: content,
+            content,
             format: 'markdown',
         });
     } catch (error) {

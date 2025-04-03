@@ -5,6 +5,7 @@ import localFont from 'next/font/local';
 import Header from '@/components/HeaderDefalut';
 import ThemeProvider from '@/components/providers/ThemeProvider';
 
+
 // varibable : TailwindCSS에서 이용하기 위해 작성
 const pretendard = localFont({
     src: '../fonts/PretendardVariable.ttf',

@@ -26,6 +26,7 @@ async function getPost(slug: string): Promise<Post | null> {
         'http://localhost:3000/';
     console.log('apiUrl', apiUrl);
 
+
     const res = await fetch(`${apiUrl}/api/posts/${slug}`, {
         cache: 'no-store',
     });

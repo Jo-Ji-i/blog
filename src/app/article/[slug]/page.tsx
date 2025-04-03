@@ -14,6 +14,7 @@ type Post = {
     content: string;
     image: string;
     category: string;
+    tags: string[];
 };
 
 async function getPost(slug: string): Promise<Post | null> {
@@ -53,7 +54,7 @@ export default async function Page({
     if (!post) return notFound();
 
     const toc = await getHeadingToc(post.content);
-    console.log(post.category);
+    console.log(post.tags);
 
     return (
         <div className="relative flex flex-col pl-10">
@@ -62,9 +63,16 @@ export default async function Page({
                     {post.title}
                 </h1>
                 <p className="text-sm text-gray-500">{post.date} </p>
-                <button className="btn btn-md w-12 rounded-md shadow-xs m-1 text-xs bg-black text-white p-0.5">
-                    {post.category}
-                </button>
+                <div>
+                    <button className="btn btn-md w-auto px-2 py-1 m-2 inline-block rounded-md shadow-xs text-xs bg-black text-white p-0.5">
+                        {post.category}
+                    </button>
+                    {post.tags.map((tag) => (
+                        <button className="w-auto px-2 py-1 m-2 text-xs text-center text-black bg-white rounded-md shadow-xs btn btn-md">
+                            {tag}
+                        </button>
+                    ))}
+                </div>
             </div>
             {/* 사이드 영역 */}
             <div className="fixed hidden p-4 shadow-md w-60 right-10 top-20 md:block">

@@ -13,27 +13,31 @@ type Post = {
     excerpt: string;
     content: string;
     image: string;
+    category: string;
 };
 
 async function getPost(slug: string): Promise<Post | null> {
     if (!slug) return null;
-    const apiUrl =
-        process?.env?.NEXT_PUBLIC_SITE_URL ??
-        `https://${process.env.NEXT_PUBLIC_VERCEL_URL?.replace(
-            /^https?:\/\//,
-            ''
-        )}` ??
-        'http://localhost:3000/';
-    console.log('apiUrl', apiUrl);
+    const isLocal = process.env.NODE_ENV === 'development'; // 실행 환경 체크
+    const apiUrl = isLocal
+        ? 'http://localhost:3000'
+        : process.env.NEXT_PUBLIC_SITE_URL;
 
+    // const apiUrl =
+    //     process?.env?.NEXT_PUBLIC_SITE_URL ??
+    //     `https://${process.env.NEXT_PUBLIC_VERCEL_URL?.replace(
+    //         /^https?:\/\//,
+    //         ''
+    //     )}` ??
+    //     'http://localhost:3000/';
 
     const res = await fetch(`${apiUrl}/api/posts/${slug}`, {
         cache: 'no-store',
     });
 
     console.log('응답 URL', apiUrl);
-    console.log('응답 상태 코드:', res.status); // 200이 아니면 API 문제!
-    console.log('응답 콘텐츠 타입:', res.headers.get('content-type')); // application/json이 나와야 정상!
+    console.log('응답 상태 코드:', res.status);
+    console.log('응답 콘텐츠 타입:', res.headers.get('content-type'));
 
     if (!res.ok) throw new Error('포스트 상세 조회 실패');
     return res.json();
@@ -49,6 +53,7 @@ export default async function Page({
     if (!post) return notFound();
 
     const toc = await getHeadingToc(post.content);
+    console.log(post.category);
 
     return (
         <div className="relative flex flex-col pl-10">
@@ -58,7 +63,7 @@ export default async function Page({
                 </h1>
                 <p className="text-sm text-gray-500">{post.date} </p>
                 <button className="btn btn-md w-12 rounded-md shadow-xs m-1 text-xs bg-black text-white p-0.5">
-                    카테고리
+                    {post.category}
                 </button>
             </div>
             {/* 사이드 영역 */}

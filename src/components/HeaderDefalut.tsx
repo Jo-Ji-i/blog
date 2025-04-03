@@ -11,8 +11,10 @@ const HeaderDefault = () => {
                     <div className="hover:text-yellow-300">
                         <Link href="/article"> Article </Link>
                     </div>
-                    <div className="hover:text-blue-400">Tag</div>
-                    <div className="hover:text-pink-300">Etc</div>
+                    <div className="hover:text-yellow-300">
+                        <Link href="/category">Category </Link>
+                    </div>
+                    <div className="hover:text-yellow-300">Etc</div>
                     <ThemeButton />
                 </div>
             </div>

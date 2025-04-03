@@ -3,8 +3,8 @@ title: '전역 변수의 문제점'
 date: '2025-02-10'
 excerpt: '전역 변수의 문제점에 대해...'
 tags: ['Next.js', 'Tailwind', 'React']
-image: 'post1-cover.png'
 category: 'FE'
+image: 'post1-cover.png'
 ---
 
 # 전역 변수의 문제점

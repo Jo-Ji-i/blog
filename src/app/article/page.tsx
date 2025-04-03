@@ -19,13 +19,10 @@ type Post = {
 
 // 메인 페이지에서 데이터 불러오기
 const getPosts = async () => {
-    const apiUrl =
-        process?.env?.NEXT_PUBLIC_SITE_URL ??
-        `https://${process.env.NEXT_PUBLIC_VERCEL_URL?.replace(
-            /^https?:\/\//,
-            ''
-        )}` ??
-        'http://localhost:3000/';
+    const isLocal = process.env.NODE_ENV === 'development'; // 실행 환경 체크
+    const apiUrl = isLocal
+        ? 'http://localhost:3000'
+        : process.env.NEXT_PUBLIC_SITE_URL;
 
     const res = await fetch(`${apiUrl}/api/posts`, { cache: 'no-store' }); // 캐싱 방지
 

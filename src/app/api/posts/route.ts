@@ -19,9 +19,7 @@ export async function GET() {
                 slug: file.replace('.md', ''), // 파일명을 slug로 변환
                 title: data.title,
                 date: data.date,
-                image: data.image,
                 excerpt: data.excerpt,
-                tags: data.tags || [],
             };
         });
 

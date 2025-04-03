@@ -1,5 +1,5 @@
 ---
-title: '두 번째 포스트'
+title: '두 번째 포스트다옹'
 date: '2025-02-25'
 excerpt: '이것은 첫 번째 포스트의 요약입니다.'
 tags: ['Next.js', 'Tailwind', 'React']

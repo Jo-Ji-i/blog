@@ -30,9 +30,9 @@ export default function ThemeButton() {
 
     return (
         <div className="flex flex-col">
-            <div onClick={ThemeButtonHandler}>
+            <button onClick={ThemeButtonHandler}>
                 {theme === 'light' ? <SunIcon /> : <MoonIcon />}
-            </div>
+            </button>
         </div>
     );
 }

@@ -20,6 +20,8 @@ export async function GET() {
                 title: data.title,
                 date: data.date,
                 excerpt: data.excerpt,
+                category: data.category,
+                tags: data.tags,
             };
         });
 
@@ -27,7 +29,6 @@ export async function GET() {
             message: 'Posts fetched successfully',
         });
 
-        // CORS 헤더 추가
         response.headers.set('Access-Control-Allow-Origin', '*'); // 모든 도메인 허용
         response.headers.set(
             'Access-Control-Allow-Methods',

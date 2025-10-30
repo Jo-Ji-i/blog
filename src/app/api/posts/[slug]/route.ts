@@ -4,7 +4,7 @@ import matter from 'gray-matter';
 import { NextResponse } from 'next/server';
 
 // 파일 저장 경로
-const postsDirectory = path.join(process.cwd(), 'src/posts');
+const postsDirectory = path.join(process.cwd(), 'src/posts/');
 export async function GET(
     req: Request,
     { params }: { params: Promise<{ slug: string }> }
@@ -12,9 +12,8 @@ export async function GET(
     try {
         console.log('slug', params);
         const { slug } = await params;
-        const filePath = path.join(postsDirectory, `/${slug}.md`);
-        console.log(filePath);
-
+        const filePath = path.join(postsDirectory, `${slug}.md`);
+        console.log('파일경로', filePath);
 
         if (!fs.existsSync(filePath)) {
             return NextResponse.json({ error: 'NOT FOUND' }, { status: 404 });
@@ -23,12 +22,15 @@ export async function GET(
         const fileContents = fs.readFileSync(filePath, 'utf-8');
         const { data, content } = matter(fileContents);
 
+        console.log('본문', fileContents);
+
         return NextResponse.json({
             slug,
             title: data.title,
             date: data.date,
             image: data.image,
             excerpt: data.excerpt,
+            category: data.category,
             tags: data.tags || [],
             content,
             format: 'markdown',

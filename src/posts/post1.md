@@ -3,11 +3,9 @@ title: '전역 변수의 문제점'
 date: '2025-02-10'
 excerpt: '전역 변수의 문제점에 대해...'
 tags: ['Next.js', 'Tailwind', 'React']
+category: 'frontend'
 image: 'post1-cover.png'
-category: 'FE'
 ---
-
-# 전역 변수의 문제점
 
 코드를 작성하면서 이 함수의 사용 범위에 따라 변수를 선언하고는 하는데,
 직감적으로 객체나 변수는 전역에 노출되면 안될 것 같다고 생각했다.

@@ -7,18 +7,47 @@
         --theme-white: 255 255 255;
         --theme-black: 0 0 0;
         --theme-primary: 210 245 255;
+        --theme-border: 0 0 0;
     }
 
     :root.dark {
         --theme-white: 0 0 0;
         --theme-black: 255 255 255;
-        --theme-primary: 34 102 255;
+        --theme-primary: 200 245 250;
+        --theme-border: 255 255 255;
     }
 }
 
 body {
     font-family: var(--font-pretendard), sans-serif;
 }
+
+/* 기본 태그 버튼 스타일 */
+.tag-button {
+    @apply w-auto px-2 py-1 m-2 text-xs text-center 
+           text-[rgb(var(--theme-black))] bg-[rgb(var(--theme-white))] 
+           rounded-md  border border-[rgb(var(--theme-border))] 
+           hover:bg-[rgb(var(--theme-black))] hover:text-[rgb(var(--theme-white))] 
+           transition-colors duration-200;
+}
+
+.tag-button--active {
+    @apply bg-[rgb(var(--theme-black))] text-[rgb(var(--theme-white))];
+}
+
+.category-button {
+    @apply w-auto px-2 py-1 m-2 text-xs text-center border rounded-lg;
+}
+
+.category-button--active {
+    @apply bg-[rgb(var(--theme-primary))] text-white font-semibold;
+}
+
+.category-button--default {
+    @apply bg-inherit text-[rgb(var(--theme-black))] border-[rgb(var(--theme-border))];
+}
+
+/* 마크다운 스타일 *
 
 .markdown {
     line-height: 30px;
@@ -33,13 +62,8 @@ body {
     margin-bottom: 1rem;
 }
 
-.markdown h1:first-child {
-    visibility: hidden;
-    display: none;
-}
-
 .markdown h1 {
-    font-size: 30px;
+    font-size: 27px;
     margin: 2px;
 }
 
@@ -102,6 +126,23 @@ body {
     } */
     .respone-quote {
         width: 80%;
+    }
+
+    .markdown h1 {
+        font-size: 20px;
+        margin: 2px;
+    }
+
+    /* h2 스타일 */
+    .markdown h2 {
+        font-size: 18px;
+        margin: 2px;
+    }
+
+    /* h3 스타일 */
+    .markdown h3 {
+        font-size: 16px;
+        margin: 2px;
     }
 }
 

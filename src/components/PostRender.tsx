@@ -1,116 +1,36 @@
 'use client';
+import React, { useEffect, useState } from 'react';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkRehype from 'remark-rehype';
+import rehypeHighlight from 'rehype-highlight';
+import rehypeStringify from 'rehype-stringify';
 
-import React from 'react';
-import Image from 'next/image';
-import ReactMarkdown from 'react-markdown';
-import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { dracula } from 'react-syntax-highlighter/dist/cjs/styles/prism';
-import remarkGfm from 'remark-gfm';
-import remarkSlug from 'remark-slug';
+interface PostRenderProps {
+    content: string;
+}
 
-const PostRender: React.FC<{ content: string }> = ({ content }) => {
-    const HeadingRenderer = (Tag: 'h1' | 'h2' | 'h3') => {
-        const NamedHeading = ({ children }: { children?: React.ReactNode }) => {
-            const id = children
-                ? children.toString().toLowerCase().replace(/\s+/g, '-')
-                : '';
+export default function PostRender({ content }: PostRenderProps) {
+    const [html, setHtml] = useState('');
 
-            return <Tag id={id}>{children}</Tag>;
-        };
+    useEffect(() => {
+        async function parseMarkdown() {
+            const file = await unified()
+                .use(remarkParse)
+                .use(remarkRehype)
+                .use(rehypeHighlight) // highlight.js 적용
+                .use(rehypeStringify)
+                .process(content);
+            setHtml(String(file));
+        }
 
-        NamedHeading.displayName = `HeadingRenderer(${Tag})`; // Displayname 에러 방지
-        return NamedHeading;
-    };
+        parseMarkdown();
+    }, [content]);
 
     return (
-        <div className="markdown font-pretendard">
-            <ReactMarkdown
-                remarkPlugins={[remarkGfm, remarkSlug]}
-                components={{
-                    code({ className, children }) {
-                        const match = /language-(\w+)/.exec(className || '');
-                        return match ? (
-                            <SyntaxHighlighter
-                                style={dracula}
-                                customStyle={{
-                                    width: '70%',
-                                    margin: '0 auto',
-                                }}
-                                language={match[1]}
-                                PreTag="div"
-                                className="respone-code"
-                            >
-                                {String(children)
-                                    .replace(/\n$/, '')
-                                    .replace(/\n&nbsp;\n/g, '')
-                                    .replace(/\n&nbsp\n/g, '')}
-                            </SyntaxHighlighter>
-                        ) : (
-                            <SyntaxHighlighter
-                                style={dracula}
-                                background="green"
-                                language="textile"
-                                className="respone-code-line"
-                                PreTag="div"
-                                customStyle={{
-                                    padding: '4px',
-                                    borderRadius: '8px',
-                                    overflow: 'hidden',
-                                    margin: '3px',
-                                }}
-                            >
-                                {String(children).replace(/\n$/, '')}
-                            </SyntaxHighlighter>
-                        );
-                    },
-                    blockquote({ children, ...props }) {
-                        return (
-                            <blockquote
-                                style={{
-                                    background: '#599AEE',
-                                    padding: '1px 15px',
-                                    borderRadius: '10px',
-                                    margin: 0,
-                                }}
-                                className="respone-quote"
-                                {...props}
-                            >
-                                {children}
-                            </blockquote>
-                        );
-                    },
-                    img({ src }) {
-                        const validSrc = src
-                            ? src.replace('../../../../public/', '/')
-                            : '';
-                        return (
-                            <Image
-                                style={{ maxWidth: '40vw' }}
-                                src={validSrc}
-                                alt="MarkdownRenderer__Image"
-                                width={500}
-                                height={300}
-                            />
-                        );
-                    },
-
-                    em({ children, ...props }) {
-                        return (
-                            <span style={{ fontStyle: 'italic' }} {...props}>
-                                {children}
-                            </span>
-                        );
-                    },
-                    p: ({ ...props }) => <div {...props} />,
-                    h1: HeadingRenderer('h1'),
-                    h2: HeadingRenderer('h2'),
-                    h3: HeadingRenderer('h3'),
-                }}
-            >
-                {content}
-            </ReactMarkdown>
-        </div>
+        <div
+            className="mb-20 prose dark:prose-invert"
+            dangerouslySetInnerHTML={{ __html: html }}
+        />
     );
-};
-
-export default PostRender;
+}

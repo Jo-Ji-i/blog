@@ -22,8 +22,6 @@ export async function GET(
         const fileContents = fs.readFileSync(filePath, 'utf-8');
         const { data, content } = matter(fileContents);
 
-        console.log('본문', fileContents);
-
         return NextResponse.json({
             slug,
             title: data.title,

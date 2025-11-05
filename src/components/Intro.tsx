@@ -5,8 +5,7 @@ type IntroProps = {
     category?: string;
 };
 
-export default function Intro({ title, category }: IntroProps) {
-    const categoryUpper = category?.toUpperCase();
+export default function Intro({ title }: IntroProps) {
     return (
         <div className="flex flex-col gap-3">
             <h2 className="pl-2 text-2xl font-bold font-pretendard">{title}</h2>

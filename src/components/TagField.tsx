@@ -17,9 +17,6 @@ export default function TagField({
     const tagList = Array.from(tags);
     const categoryList = Array.from(allCategory);
 
-    console.log('cate', categoryList);
-    console.log('tag', tagList);
-
     return (
         <div className="flex flex-col py-2 pl-2">
             <hr className="w-[90%]" />

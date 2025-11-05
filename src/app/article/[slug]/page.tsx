@@ -32,8 +32,12 @@ async function getPost(slug: string): Promise<Post | null> {
     return res.json();
 }
 
-export default async function Page({ params }: { params: { slug: string } }) {
-    const { slug } = params;
+export default async function Page({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}) {
+    const { slug } = await params;
     const post = await getPost(slug);
     if (!post) return notFound();
 

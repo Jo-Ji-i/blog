@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "-": "^0.0.1",
+    "@react-three/drei": "^10.7.6",
+    "@react-three/fiber": "^9.4.0",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/typography": "^0.5.19",
     "@types/react-syntax-highlighter": "^15.5.13",
@@ -21,6 +23,7 @@
     "next-themes": "^0.4.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-intersection-observer": "^10.0.0",
     "react-markdown": "^10.1.0",
     "react-syntax-highlighter": "^15.6.1",
     "rehype-highlight": "^7.0.2",
@@ -31,6 +34,7 @@
     "remark-slug": "^6.1.0",
     "save": "^2.9.0",
     "swr": "^2.3.6",
+    "three": "^0.181.0",
     "zustand": "^5.0.3"
   },
   "devDependencies": {
@@ -39,6 +43,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "@types/three": "^0.181.0",
     "autoprefixer": "^10.4.21",
     "eslint": "^9",
     "eslint-config-next": "15.2.3",

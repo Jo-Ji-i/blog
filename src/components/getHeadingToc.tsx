@@ -2,6 +2,7 @@
 
 export const getHeadingToc = async (source: string) => {
     // 라인을 시작해서 한개이상 # 요소를 가진 것들 필티링
+    if (!source || typeof source !== 'string') return [];
     const headings = source.split('\n').filter((str) => str.match(/^#+/));
 
     return headings.map((str) => {

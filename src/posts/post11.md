@@ -1,15 +1,93 @@
 ---
-title: '열 한 번째 포스트'
+title: 'App Router vs Pages Router'
 date: '2025-03-09'
-excerpt: '이것은 첫 번째 포스트의 요약입니다.'
-tags: ['Next.js', 'Tailwind', 'React']
-image: 'post2-cover.png'
-category: 'FE'
+excerpt: 'Next.js 13부터 새롭게 추가된 App Router는 기존의 Pages Router를 완전히 대체하기 위해 만들어졌다. 둘을 비교해 보자..'
+tags: ['Next']
+image: 'next.png'
+category: 'next'
 ---
 
-# 첫 번째 포스트
+Next.js 13부터 새롭게 추가된 **App Router**는 기존의 **Pages Router**를 완전히 대체하기 위해 만들어졌다.
 
-이것은 블로그의 첫 번째 임시 포스트입니다.
+물론 나는 Next의 이전버전을 사용해본적이 없다.
 
--   마크다운 문법을 사용할 수 있음
--   이미지도 추가 가능
+그래서 왜 어쨰서 새로 나온 App Router를 권장하는 건지 알아보자.
+
+---
+
+## 1. 라우팅 구조의 차이
+
+| 구분        | Pages Router                 | App Router                        |
+| ----------- | ---------------------------- | --------------------------------- |
+| 라우팅 기준 | `pages/` 디렉토리            | `app/` 디렉토리                   |
+| 파일 확장자 | `.js`, `.tsx`                | `.tsx` (기본적으로 서버 컴포넌트) |
+| 라우팅 방식 | 파일 기반 (자동 라우팅)      | 폴더 기반 (Segment 라우팅)        |
+| 예시        | `/pages/about.js` → `/about` | `/app/about/page.tsx` → `/about`  |
+
+App Router는 **폴더 구조 자체가 라우팅 트리**입니다.
+
+즉, `app/blog/[slug]/page.tsx`처럼 **Segment 기반 라우팅**을 쓰면서, **서버 컴포넌트와 클라이언트 컴포넌트를 자연스럽게 분리**할 수 있게 되었다는 것이다.
+
+---
+
+## 2. 렌더링과 컴포넌트 구조
+
+App Router는 **React Server Components (RSC)** 기반이다.
+
+즉, 기본적으로 모든 컴포넌트가 **서버에서 렌더링**됩니다.
+
+필요한 경우에만 `"use client"`를 선언해서 클라이언트 전용 컴포넌트로 바꿔줘야 한다.
+
+장점: 불필요한 클라이언트 JS를 줄여 번들 크기를 감소시킴
+단점: 클라이언트 컴포넌트 간의 데이터 전달이 제한적이라 설계가 까다로움
+
+## 📦 3. Data Fetching의 변화
+
+| 구분             | Pages Router                           | App Router                                           |
+| ---------------- | -------------------------------------- | ---------------------------------------------------- |
+| 데이터 패칭 위치 | `getStaticProps`, `getServerSideProps` | 컴포넌트 내부에서 직접 Fetch                         |
+| 비동기 처리      | 별도 함수 사용                         | `async component`로 직접 처리                        |
+| 재검증(캐싱)     | `revalidate` 속성 사용                 | `fetch()` 옵션 기반 (`{ next: { revalidate: 10 } }`) |
+
+```tsx
+// App Router 예시
+export default async function Page() {
+    const res = await fetch('https://api.example.com/data', {
+        next: { revalidate: 60 },
+    });
+    const data = await res.json();
+
+    return <div>{data.name}</div>;
+}
+```
+
+App Router는 **데이터 패칭이 React 컴포넌트와 완전히 통합**되었다.
+
+따라서 비즈니스 로직이 분산되지 않고 **한 눈에 흐름을 파악**하기 쉬워졌다.
+
+## 4. Layout 시스템의 차이
+
+App Router에서는 **`layout.tsx` 파일을 사용해 중첩 레이아웃**을 구성할 수 있다.
+
+이건 Pages Router 시절에는 없던 것!!!
+
+```tsx
+// app/dashboard/layout.tsx
+export default function DashboardLayout({ children }) {
+    return (
+        <div>
+            <Sidebar />
+            <main>{children}</main>
+        </div>
+    );
+}
+```
+
+이 layout은 `app/dashboard/*` 하위 페이지 모두에 공통 적용됩니다.
+
+즉, **공통 UI를 공유하면서도 페이지 간 상태를 유지**할 수 있다.
+
+### 참고 자료
+
+-   Next.js 공식 문서: App Router
+-   RFC: React Server Components

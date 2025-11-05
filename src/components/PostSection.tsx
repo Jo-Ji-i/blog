@@ -12,7 +12,6 @@ interface PostSectionProps {
 export const PostSection = ({ posts, limit = 10 }: PostSectionProps) => {
     const latestPosts: Post[] = posts.slice(0, 3);
     const remainingPosts: Post[] = posts.slice(3, limit);
-
     return (
         <div className="flex flex-col gap-3 pt-3">
             <p className="pl-3 text-base font-pretendard">최신 포스트</p>
@@ -25,8 +24,8 @@ export const PostSection = ({ posts, limit = 10 }: PostSectionProps) => {
                         date={post.date}
                         image={post.image}
                         excerpt={post.excerpt}
-                        height="200"
-                        width="250"
+                        height={250}
+                        width={200}
                         priority={index === 0}
                         link={`/article/${post.slug}`}
                     />

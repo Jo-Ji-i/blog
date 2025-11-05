@@ -3,7 +3,7 @@ title: 'State 와 Ref 비교'
 date: '2025-02-25'
 excerpt: 'state는 언제쓰고 Ref는 또 뭔지.....그 차이에 대해 알아보자!'
 tags: ['state', 'ref', 'React']
-image: 'post2-cover.png'
+image: 'react.png'
 category: 'react'
 ---
 

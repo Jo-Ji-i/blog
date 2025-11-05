@@ -8,4 +8,5 @@ export type Post = {
     tags: string[];
     image: string;
     category: string;
+    content: string;
 };

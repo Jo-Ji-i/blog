@@ -7,8 +7,8 @@ type PostCardProps = {
     date: string;
     image: string;
     excerpt: string;
-    height: string;
-    width: string;
+    height: number;
+    width: number;
     priority?: boolean;
     link: string;
 };
@@ -19,17 +19,23 @@ const PostCard = ({
     image,
     height,
     width,
+    priority,
     link,
 }: PostCardProps) => {
     return (
         <div className="flex flex-col items-center justify-center flex-shrink-0">
-            <Link href={link}>
+            <Link href={link} className="group">
                 <div className="relative w-full h-full">
                     <Image
-                        src={`/images/main/${image}`}
+                        src={
+                            image
+                                ? `/images/main/${image}`
+                                : `/images/main/default.png`
+                        }
                         alt={title}
-                        width={Number(width)}
-                        height={Number(height)}
+                        width={width}
+                        height={height}
+                        priority={priority}
                         className="object-cover rounded-lg"
                     />
                     <div className="absolute inset-0 flex flex-col items-start justify-end p-2 text-white transition-opacity opacity-50 bg-black/50 group-hover:opacity-100">

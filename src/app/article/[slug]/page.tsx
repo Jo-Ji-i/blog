@@ -4,33 +4,12 @@ import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import ReactMarkdown from 'react-markdown';
 import rehypeHighlight from 'rehype-highlight';
+import remarkGfm from 'remark-gfm';
 import 'highlight.js/styles/github-dark.css';
 import { Toc } from '@/components/Toc';
 import { getHeadingToc } from '@/components/getHeadingToc';
-
-type Post = {
-    title: string;
-    date: string;
-    excerpt: string;
-    content: string;
-    image: string;
-    category: string;
-    tags: string[];
-};
-
-async function getPost(slug: string): Promise<Post | null> {
-    if (!slug) return null;
-    const apiUrl =
-        process.env.NODE_ENV === 'development'
-            ? 'http://localhost:3000'
-            : process.env.NEXT_PUBLIC_SITE_URL;
-
-    const res = await fetch(`${apiUrl}/api/posts/${slug}`, {
-        cache: 'no-store',
-    });
-    if (!res.ok) return null;
-    return res.json();
-}
+import { fetchPosts } from '@/lib/api';
+import { Post } from '@/lib/types';
 
 export default async function Page({
     params,
@@ -38,9 +17,11 @@ export default async function Page({
     params: Promise<{ slug: string }>;
 }) {
     const { slug } = await params;
-    const post = await getPost(slug);
-    if (!post) return notFound();
 
+    const posts: Post[] = await fetchPosts();
+
+    const post = posts.find((p) => p.slug === slug);
+    if (!post) return notFound();
     const toc = await getHeadingToc(post.content);
 
     return (
@@ -52,13 +33,13 @@ export default async function Page({
                 </h1>
                 <p className="mb-4 text-sm text-gray-500">{post.date}</p>
                 <div className="flex flex-wrap gap-2 mb-6">
-                    <span className="px-3 py-1 text-xs font-medium bg-gray-200 rounded">
+                    <span className="px-3 py-1 text-xs font-medium bg-blue-300 rounded">
                         {post.category}
                     </span>
                     {post.tags.map((tag) => (
                         <span
                             key={tag}
-                            className="px-3 py-1 text-xs font-medium bg-gray-100 rounded"
+                            className="px-3 py-1 text-xs font-medium text-black bg-gray-200 rounded"
                         >
                             {tag}
                         </span>
@@ -66,8 +47,11 @@ export default async function Page({
                 </div>
 
                 {/* 마크다운 렌더링 */}
-                <div className="prose dark:prose-invert max-w-none">
-                    <ReactMarkdown rehypePlugins={[rehypeHighlight]}>
+                <div className="py-10 pb-24 prose dark:prose-invert max-w-none">
+                    <ReactMarkdown
+                        remarkPlugins={[remarkGfm]} // GFM 지원
+                        rehypePlugins={[rehypeHighlight]} // 코드 하이라이팅
+                    >
                         {post.content}
                     </ReactMarkdown>
                 </div>

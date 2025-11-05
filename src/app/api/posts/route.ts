@@ -13,7 +13,7 @@ export async function GET() {
         const posts = files.map((file) => {
             const filePath = path.join(postsDirectory, file);
             const fileContents = fs.readFileSync(filePath, 'utf-8');
-            const { data } = matter(fileContents);
+            const { data, content } = matter(fileContents);
 
             return {
                 slug: file.replace('.md', ''), // 파일명을 slug로 변환
@@ -22,6 +22,8 @@ export async function GET() {
                 excerpt: data.excerpt,
                 category: data.category,
                 tags: data.tags,
+                image: data.image,
+                content,
             };
         });
 

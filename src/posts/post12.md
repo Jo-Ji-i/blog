@@ -1,15 +1,155 @@
 ---
-title: '열두번째 포스트'
+title: 'Server Component와 Client Component 구분하기'
 date: '2025-03-09'
-excerpt: '이것은 첫 번째 포스트의 요약입니다.'
-tags: ['Next.js', 'Tailwind', 'React']
-image: 'post2-cover.png'
-category: 'FE'
+excerpt: 'Next로 개발을 하다 보면 가장 처음 부딪히는 개념이 바로
+서버 컴포넌트(Server Component)와 클라이언트 컴포넌트(Client Component)의 구분이다..'
+tags: ['Next']
+image: 'next.png'
+category: 'next'
 ---
 
-# 첫 번째 포스트
+### Server Component
 
-이것은 블로그의 첫 번째 임시 포스트입니다.
+-   별다른 선언 없이 작성하면 모두 서버 컴포넌트가 기본이다.
+-   **서버에서 렌더링**되고, 브라우저로는 **HTML만 전송**돼요.
+-   브라우저로 JS가 내려가지 않기 때문에 **번들 크기가 줄고**, **초기 로드가 빠름**.
+-   단, **이벤트 핸들러(onClick 등)**를 쓸 수 없어요.
+    브라우저에서 실행되지 않기 때문!
 
--   마크다운 문법을 사용할 수 있음
--   이미지도 추가 가능
+---
+
+### Client Component
+
+-   파일 상단에 `"use client"` 선언을 추가해야 함.
+-   **브라우저에서 렌더링되는 컴포넌트**로,
+    이벤트, 훅(`useState`, `useEffect` 등), 상태 관리 라이브러리 사용 가능.
+-   단점은 JS 번들에 포함되므로 **성능에 부담**이 생길 수 있음.
+
+```tsx
+'use client';
+import { useState } from 'react';
+
+export default function Counter() {
+    const [count, setCount] = useState(0);
+    return <button onClick={() => setCount(count + 1)}>Clicked {count}</button>;
+}
+```
+
+→ `"use client"`가 선언되면 이 파일과 그 안의 하위 컴포넌트들도 전부 **클라이언트 컴포넌트 트리**로 변환돼요.
+
+---
+
+## 2. 핵심 차이 정리
+
+| 항목              | Server Component                 | Client Component    |
+| ----------------- | -------------------------------- | ------------------- |
+| 실행 위치         | 서버                             | 브라우저            |
+| 선언 방법         | 기본값 (선언 필요 없음)          | `"use client"` 필요 |
+| 사용할 수 있는 훅 | X (`useState`, `useEffect` 불가) | O                   |
+| 이벤트 핸들러     | X                                | O                   |
+| 데이터 패칭       | 가능 (`async/await`)             | 일반적으로 불가     |
+| 번들 사이즈       | 작음 (JS 없음)                   | 커짐 (JS 포함)      |
+
+---
+
+## 3. 언제 어떤 걸 써야 할까?
+
+### 서버 컴포넌트로 해야 하는 경우
+
+-   페이지 로드 시 **서버에서 데이터를 받아야 하는 경우**
+-   **SEO가 중요한 페이지** (HTML로 바로 응답 가능)
+-   **상태나 사용자 이벤트가 필요 없는 컴포넌트**
+    -   예: 게시글 목록, 프로필 카드, 정적 UI 등
+
+### 클라이언트 컴포넌트로 해야 하는 경우
+
+-   사용자와 **상호작용이 있는 컴포넌트**
+    -   버튼, 입력창, 토글, 모달 등
+-   **React 훅**을 사용하는 경우
+    -   `useState`, `useEffect`, `useRef` 등
+-   **상태 관리 라이브러리**를 사용하는 경우
+    -   Redux, Zustand, Jotai 등
+
+---
+
+## 4. 혼합 사용 (Server + Client)
+
+실제 프로젝트에서는 대부분 이 두 가지가 **함께 쓰입니다.**
+
+예를 들어, 게시글 목록은 서버 컴포넌트로,
+
+‘좋아요’ 버튼은 클라이언트 컴포넌트로 분리하는 식이에요.
+
+```tsx
+// app/posts/page.tsx
+import LikeButton from './LikeButton';
+
+export default async function Posts() {
+    const posts = await getPosts();
+
+    return (
+        <div>
+            {posts.map((post) => (
+                <div key={post.id}>
+                    <h3>{post.title}</h3>
+                    <LikeButton postId={post.id} />
+                </div>
+            ))}
+        </div>
+    );
+}
+
+// app/posts/LikeButton.tsx
+('use client');
+import { useState } from 'react';
+
+export default function LikeButton({ postId }) {
+    const [liked, setLiked] = useState(false);
+    return (
+        <button onClick={() => setLiked(!liked)}>
+            {liked ? '❤️ Liked' : '🤍 Like'}
+        </button>
+    );
+}
+```
+
+이렇게 하면:
+
+-   게시글 리스트는 서버에서 빠르게 렌더링
+-   버튼만 클라이언트에서 JS로 동작
+    **필요한 곳에만 JS를 로드**할 수 있어 성능이 좋아져요.
+
+---
+
+## 5. 서버 컴포넌트의 장점 요약
+
+-   클라이언트 JS 번들을 줄여 **초기 로딩 속도 향상**
+-   **SEO 최적화**에 유리 (완성된 HTML을 즉시 제공)
+-   **서버 데이터 접근이 용이** (DB, 파일 시스템 등)
+-   **보안성 향상** (API key나 비밀 정보가 클라이언트로 전달되지 않음)
+
+---
+
+## 6. 자주 하는 실수
+
+1. `"use client"`를 잊어서 이벤트가 안 먹는 경우
+2. 클라이언트 컴포넌트 안에서 서버 전용 로직(DB, 파일 접근 등)을 실행하려는 경우
+3. 불필요하게 모든 페이지를 `"use client"`로 선언해버리는 경우
+
+    → 이러면 서버 컴포넌트의 장점을 전혀 못 씀!
+
+---
+
+## 결론
+
+> 서버 컴포넌트는 기본, 클라이언트 컴포넌트는 최소한으로.
+
+이게 Next.js 13+의 핵심이다.
+
+서버에서 가능한 한 많은 일을 처리하고,
+
+진짜 사용자 상호작용이 필요한 부분만 클라이언트에서 맡기는 게 이상적인 구조입니다.
+
+사실 프로젝트를 진행하다보면 자연스럽게 이해가 되는 방향이다.
+
+기본이 서버 컴포넌트라는 걸 초점으로 잡고 부득이하게 무조건 클라이언트 환경에서만 구동해야할 경우에 사용하는 걸로 바꾸면 아주 쉽다. 중요한 건 큰 범위를 클라이언트로 만들지 않기! 하위 컴포넌트도 다 클라이언트 행;

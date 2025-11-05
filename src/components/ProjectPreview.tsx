@@ -3,14 +3,14 @@ import Link from 'next/link';
 export function ProjectPreview() {
     const projects = [
         {
-            title: '포트폴리오 리뉴얼',
-            desc: 'Next.js + Framer Motion 기반',
-            link: '#',
+            title: 'React 쇼핑몰 웹',
+            desc: 'React와 다양한 라이브러리 활용',
+            link: 'https://github.com/Jo-Ji-i/shop',
         },
         {
-            title: '팀 협업 대시보드',
+            title: 'PAYROAD 웹 서비스',
             desc: 'React + Zustand로 상태 관리',
-            link: '#',
+            link: 'https://github.com/2025-toss-project/Front-end',
         },
     ];
 

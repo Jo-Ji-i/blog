@@ -4,6 +4,16 @@
 
 개인 학습 내용을 정리하고 개발자로서 역량 강화를 위해 제작한 개인 기술 블로그입니다. 단순 아카이빙을 넘어, SSR/CSR, 서버/클라이언트 컴포넌트 구조, 성능 최적화 등 실무 경험을 쌓기 위해 구현했습니다. Next.js App Router 기반으로 서버와 클라이언트 렌더링 방식을 적절히 선택하여 최적화했습니다.
 
+
+### 메인페이지
+<img width="1440" height="737" alt="스크린샷 2025-11-06 오후 9 36 54" src="https://github.com/user-attachments/assets/706c979c-a2e2-4e6d-9d71-904b889d44c1" />
+
+
+### 게시물 페이지
+<img width="917" height="667" alt="스크린샷 2025-11-06 오후 9 38 04" src="https://github.com/user-attachments/assets/ba69f680-07f2-4629-8726-20d44f8d0557" />
+
+
+
 ## 주요 기능
 
 -   **게시물 목록 페이지**
@@ -61,6 +71,7 @@ bun dev
 
 ## 디렉토리 구조
 
+```
 ├─ public
 │ ├─ favicon.ico
 │ ├─ images
@@ -120,7 +131,7 @@ bun dev
 │ │ ├─ types.ts
 │ │ └─ utils.ts
 │ ├─ posts
-│ │ ├─ post1.md
+│ │ ├─ post1.m
 │ │ ├─ post10.md
 │ │ ├─ post11.md
 │ │ ├─ post12.md
@@ -141,3 +152,4 @@ bun dev
 
 
 ```
+
